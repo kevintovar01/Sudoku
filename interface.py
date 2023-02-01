@@ -1,20 +1,51 @@
+#functions
 from sudoku_proyect import print_sudoku, check_nums
+
+
+
+#tkinter
+from tkinter import *
+
+#python
 import random
 import os
 
 positions = []
 user_coord = []
+
+def clear_frame(frame):
+    for widgets in frame.winfo_children():
+        widgets.destroy()
+
+
+def request_number(frame):
+    number = entry.get()
+    clear_frame(frame)
+    return int(number)
+
+
+def entry_values(frame):
+    global label
+    global entry
+    label=Label(frame, text="test")
+    label.pack()
+    
+    entry = Entry(frame, width=40)
+    entry.get()
+    entry.focus_set()
+    entry.pack()  
+    quit_frame = Button(frame, text="next", command=lambda:request_number(frame))
+    quit_frame.pack()
+
   
-def delete_nums(sudoku):
+def delete_nums(sudoku, number):
     global user_coord, positions
     user_coord = []
     positions = []
     try:  #controlar Errores
-        how = int(input("How many numbers do you want to see in your sudoku?: "))
-        how = 81 - how
         positions = [(i,j) for i in range(9) for j in range(9)]
 
-        for i in range(how):
+        for i in range(number):
             delete = random.randint(0, len(positions)-1)
             row, column = positions[delete]
             sudoku[row][column] = " "

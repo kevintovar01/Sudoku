@@ -1,11 +1,21 @@
 import random
 from colorama import Fore
 
+
+from tkinter import *
+
 n = 9
 
 
-def matrix():
-    sudoku = [[" " for i in range(n)] for i in range(n)]  #list comprehention
+def matrix(frame):
+    sudoku = [[" " for i in range(n)] for i in range(n)]
+
+    # rows, cols = (10,10)
+    # for i in range(1, rows):
+    #     for j in range(1, cols):
+    #         entry = Entry(frame, textvariable ="",width=3)
+    #         entry.grid(row=i, column=j)
+
     mylist = [i for i in range(1, n+1)]
     for i in range(1):  #row 0
         for j in range(n):

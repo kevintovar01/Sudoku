@@ -1,43 +1,44 @@
 #functions 
 from sudoku_proyect import solve, matrix, print_sudoku, check_space
-from interface import delete_nums, add, check_numbers, delete_all
+from interface import delete_nums, add, check_numbers, delete_all, entry_values, clear_frame, request_number
 
 #Python
 from colorama import Fore
 import os
+from tkinter import *
+from tkinter import ttk
 
 
 def menu():
-    print(Fore.BLUE+"""
+    root = Tk()
+    global frame
 
-              ▒█▀▀▀█ █░░█ █▀▀▄ █▀▀█ █░█ █░░█ 
-              ░▀▀▀▄▄ █░░█ █░░█ █░░█ █▀▄ █░░█ 
-              ▒█▄▄▄█ ░▀▀▀ ▀▀▀░ ▀▀▀▀ ▀░▀ ░▀▀▀
+    frame = ttk.Frame(root, padding=100)
+    frame.grid()
+    Label(frame, text="""
+
+               ▒█▀▀▀█ █░░█ █▀▀▄ █▀▀█ █░█ █░░█ 
+               ░▀▀▀▄▄ █░░█ █░░█ █░░█ █▀▄ █░░█ 
+               ▒█▄▄▄█ ░▀▀▀ ▀▀▀░ ▀▀▀▀ ▀░▀ ░▀▀▀
               
-                 𝙒𝙚𝙡𝙘𝙤𝙢𝙤 𝙩𝙤 𝙩𝙝𝙚 𝙖𝙢𝙖𝙯𝙞𝙣𝙜 𝙜𝙖𝙢𝙚
-        𝙜𝙖𝙢𝙚 𝙩𝙝𝙖𝙩 𝙮𝙤𝙪 𝙝𝙖𝙫𝙚 𝙣𝙚𝙫𝙚𝙧 𝙨𝙚𝙚𝙣 𝙞𝙣 𝙮𝙤𝙪𝙧 𝙬𝙝𝙤𝙡𝙚 𝙡𝙞𝙫𝙚
-                              ★
-                              ★
-                         [1]- Play
-                         [2]- Exit
+                  𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙖𝙢𝙖𝙯𝙞𝙣𝙜 𝙜𝙖𝙢𝙚
+         𝙜𝙖𝙢𝙚 𝙩𝙝𝙖𝙩 𝙮𝙤𝙪 𝙝𝙖𝙫𝙚 𝙣𝙚𝙫𝙚𝙧 𝙨𝙚𝙚𝙣 𝙞𝙣 𝙮𝙤𝙪𝙧 𝙬𝙝𝙤𝙡𝙚 𝙡𝙞𝙫𝙚
 
-  """)
-    data = (input("Enter an option: "))
-    play(data)
+   """).grid(column=0,row=0)
+
+    Button(frame, text="Play", command=play).grid(column=0,row=1)
+    Button(frame, text="Quit", command=root.destroy).grid(column=0,row=4)
+    root.mainloop()
+
   
-
-def play(data):
-    if data == '1':
-        sudoku = matrix() 
-        solve(sudoku)
-        interface(sudoku)
-    elif data == '2':
-        os.system('clear')
-        print("Exit successful")
-    else:
-        os.system('clear')
-        print("ERROR plese digit a valid option")
-        menu()
+def play():
+    clear_frame(frame)
+    sudoku = matrix(frame) 
+    solve(sudoku)
+    entry_values(frame)
+    number = request_number(frame)
+    # print(number)
+    # interface(sudoku, number)
 
 
 def interface(sudoku):
